@@ -185,3 +185,69 @@ Solve and view the solution path of a 2D Maze
         . . . 
         o o . 
         # # .
+
+## **4. `mazeSolverMultiBestWay.cpp`**
+
+* It will give every possible way [__minimum steps taken__] to solve the maze.
+* Can be used to see every __best__ possible solutions of the maze.
+
+* **Input**:
+
+        * <rows> <columns> <max solution print>
+        * <start row> <start col> <end row> <end col>
+        * <elements of the maze>
+
+    * `<max solution print>` can be set to -1 to print all solution. Or, It can be a limiting value of solutions print count.
+
+* **Input Example**:
+
+        4 4 -1
+        1 1 4 3
+
+        1 1 1 1 
+        1 1 1 1
+        1 1 0 1
+        0 1 1 1
+
+* **Output**:
+
+        <Number of Solutions> <Steps taken of Each>
+        <solutions of maze>
+
+* **Normal Output Example**:
+
+        3 6
+
+        2 1 1 1 
+        2 1 1 1 
+        2 2 0 1 
+        0 2 2 1 
+
+        2 1 1 1 
+        2 2 1 1 
+        1 2 0 1 
+        0 2 2 1 
+
+        2 2 1 1 
+        1 2 1 1 
+        1 2 0 1 
+        0 2 2 1
+
+* **Fancy Output Example**:
+
+        3 6
+
+        . o o o 
+        . o o o 
+        . . # o 
+        # . . o 
+
+        . o o o 
+        . . o o 
+        o . # o 
+        # . . o 
+
+        . . o o 
+        o . o o 
+        o . # o 
+        # . . o
