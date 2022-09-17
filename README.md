@@ -297,3 +297,53 @@ Solve and view the solution path of a 2D Maze
         o . o o
         o . # o
         # . . o
+
+## **6. `mazeSolverAllInOne.cpp`**
+
+* It will give every possible way to solve the maze according given __mode__.
+* Can be used to see __all__ / __best__ / __best of the best__ possible solutions of the maze.
+
+* **Input**:
+
+        * <rows> <columns> <max solution print> <mode>
+        * <start row> <start col> <end row> <end col>
+        * <elements of the maze>
+
+    * `<max solution print>` can be set to -1 to print all solution. Or, It can be a limiting value of solutions print count.
+    * `<mode>` can be `0` / `1` / `2` to get __all__ / __best__ / __best of the best__ solutions.
+    * `mode == 0` => get all possible solve
+    * `mode == 1` => get all solve with __min steps__
+    * `mode == 2` => get all solve with __min steps__ & __min direction change__
+
+* **Input Example**:
+
+        4 5 -1 2
+        1 1 4 5
+
+        1 1 1 1 1
+        1 1 0 0 1
+        0 1 1 0 1
+        0 0 1 1 1
+
+* **Output**:
+
+        <solution count, steps, direction change [according to mode]>
+        <solutions of the maze>
+
+* **Normal Output Example**:
+
+        1 8 1
+
+        2 2 2 2 2 
+        1 1 0 0 2 
+        0 1 1 0 2 
+        0 0 1 1 2
+
+* **Fancy Output Example**:
+
+        1 8 1
+
+        . . . . . 
+        o o # # . 
+        # o o # . 
+        # # o o .
