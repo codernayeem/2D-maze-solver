@@ -2,29 +2,21 @@
 #include <vector>
 using namespace std;
 
+#define en "\n"
+
 string styles[3] = {"#o.", "# .", "Xo."}; // "<obstacle><free space><solution path>"
 int styles_idx = 0;
+bool fancy = 1;
 
 void printMaze(int** pos, int row, int col){
     for (int i = 0; i < row; i++){
-        for (int j = 0; j < col; j++)
-            cout << pos[i][j] << ' ';
-        cout << endl;
-    }
-}
-
-void printMazeFancy(int** pos, int row, int col, string chars){
-    for (int i = 0; i < row; i++){
         for (int j = 0; j < col; j++){
-
-            if(pos[i][j] == 1 || pos[i][j] == 2)
-                cout << chars[pos[i][j]];
+            if(fancy)
+                cout << styles[styles_idx][pos[i][j]] << ' ';
             else
-                cout << chars[0];
-            
-            cout << ' ';
+                cout << pos[i][j] << ' ';
         }
-        cout << endl;
+        cout << en;
     }
 }
 
@@ -87,28 +79,27 @@ int main(){
         }
     }
 
-    // cout << "\n";
-    // printMazeFancy(pos, row, col, styles[0]);
+    // cout << en;
+    // printMaze(pos, row, col);
     
-    cout << "\n";
     vector<pair<int, int>> path, sol;
 
     // validate start & end point
     if(!(isSafe(pos, row, col, st_x, st_y, path) && isSafe(pos, row, col, en_x, en_y, path))){
-        cout << -1 << "\n";
+        cout << en << -1 << en;
         return 0;
     }
 
     solveMaze(pos, row, col, st_x, st_y, en_x, en_y, path, sol);
-    cout << "\n" << sol.size() << "\n\n"; // print step
+    cout << en << sol.size() << en; // <steps taken>
     if(sol.size()){
         // add sol to pos
         for(auto i: sol)
             pos[i.first][i.second] = 2;
 
         // output maze
-        // printMaze(pos, row, col);
-        printMazeFancy(pos, row, col, styles[styles_idx]);
-        cout << '\n';
+        cout << en;
+        printMaze(pos, row, col);
+        cout << en;
     }
 }

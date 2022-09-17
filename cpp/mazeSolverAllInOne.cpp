@@ -2,29 +2,21 @@
 #include <vector>
 using namespace std;
 
+#define en "\n"
+
 string styles[3] = {"#o.", "# .", "Xo."}; // "<obstacle><free space><solution path>"
 int styles_idx = 0;
+bool fancy = 1;
 
 void printMaze(int** pos, int row, int col){
     for (int i = 0; i < row; i++){
-        for (int j = 0; j < col; j++)
-            cout << pos[i][j] << ' ';
-        cout << endl;
-    }
-}
-
-void printMazeFancy(int** pos, int row, int col, string chars){
-    for (int i = 0; i < row; i++){
         for (int j = 0; j < col; j++){
-
-            if(pos[i][j] == 1 || pos[i][j] == 2)
-                cout << chars[pos[i][j]];
+            if(fancy)
+                cout << styles[styles_idx][pos[i][j]] << ' ';
             else
-                cout << chars[0];
-            
-            cout << ' ';
+                cout << pos[i][j] << ' ';
         }
-        cout << endl;
+        cout << en;
     }
 }
 
@@ -144,16 +136,15 @@ int main(){
         }
     }
 
-    // cout << "\n";
+    // cout << en;
     // printMazeFancy(pos, row, col, styles[0]);
     
-    cout << '\n';
     vector<pair<int, int>> path;
     vector<vector<pair<int, int>>> sol;
 
     // validate start & end point
     if(!(isSafe(pos, row, col, st_x, st_y, path) && isSafe(pos, row, col, en_x, en_y, path))){
-        cout << -1 << "\n";
+        cout << en << -1 << en;
         return 0;
     }
 
@@ -162,19 +153,18 @@ int main(){
     int min_dir_change = INT_MAX;
     if(mode == 2){ // get min direction changed solutions
         vector<vector<pair<int, int>>> new_sol;
-        for(auto i: sol){
+        for(auto i: sol)
             min_dir_change = compareDirChange(i, new_sol, min_dir_change);
-        }
         sol = new_sol;
     }
     
-    cout << sol.size(); // <number of solutions>
     if(sol.size()){
+        cout << en << sol.size();
         if (mode != 0)
             cout << ' ' << sol[0].size();
         if (mode == 2)
             cout << ' ' << min_dir_change;
-        cout << "\n\n";
+        cout << en << en;
 
         for(int i = 0; i < sol.size() && (max_solve == -1 || i < max_solve); i++){
             // add sol[i] to pos
@@ -182,13 +172,13 @@ int main(){
                 pos[j.first][j.second] = 2;
             
             // output maze
-            // printMaze(pos, row, col);
-            printMazeFancy(pos, row, col, styles[styles_idx]);
-            cout << "\n";
+            printMaze(pos, row, col);
+            cout << en;
             
             // remove current sol[i] from pos
             for(auto j: sol[i])
                 pos[j.first][j.second] = 1;
         }
-    }
+    }else
+        cout << en << 0 << en;
 }

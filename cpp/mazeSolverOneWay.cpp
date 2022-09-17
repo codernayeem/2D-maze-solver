@@ -1,29 +1,21 @@
 #include <iostream>
 using namespace std;
 
+#define en "\n"
+
 string styles[3] = {"#o.", "# .", "Xo."}; // "<obstacle><free space><solution path>"
 int styles_idx = 0;
+bool fancy = 1;
 
 void printMaze(int** pos, int row, int col){
     for (int i = 0; i < row; i++){
-        for (int j = 0; j < col; j++)
-            cout << pos[i][j] << ' ';
-        cout << endl;
-    }
-}
-
-void printMazeFancy(int** pos, int row, int col, string chars){
-    for (int i = 0; i < row; i++){
         for (int j = 0; j < col; j++){
-
-            if(pos[i][j] == 1 || pos[i][j] == 2)
-                cout << chars[pos[i][j]];
+            if(fancy)
+                cout << styles[styles_idx][pos[i][j]] << ' ';
             else
-                cout << chars[0];
-            
-            cout << ' ';
+                cout << pos[i][j] << ' ';
         }
-        cout << endl;
+        cout << en;
     }
 }
 
@@ -70,20 +62,19 @@ int main(){
         }
     }
     
-    // cout << "\n";
-    // printMazeFancy(pos, row, col, styles[0]);
+    // cout << en;
+    // printMaze(pos, row, col);
     
-    cout << "\n";
     // validate start & end point
     if(!(isSafe(pos, row, col, st_x, st_y) && isSafe(pos, row, col, en_x, en_y))){
-        cout << -1 << "\n";
+        cout << en << -1 << en;
         return 0;
     }
 
-    if(solveMaze(pos, row, col, st_x, st_y, en_x, en_y)){
-        // printMaze(pos, row, col);
-        printMazeFancy(pos, row, col, styles[styles_idx]);
-    }else
+    cout << en;
+    if(solveMaze(pos, row, col, st_x, st_y, en_x, en_y))
+        printMaze(pos, row, col);
+    else
         cout << 0; // No way to solve
-    cout << "\n";
+    cout << en;
 }
